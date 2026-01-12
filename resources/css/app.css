@@ -1,0 +1,730 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================================================
+   GLOBAL RESET & PERFORMANCE
+===================================================== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(1200px circle at 15% 10%, rgba(99,102,241,.06), transparent 40%),
+    radial-gradient(1000px circle at 85% 90%, rgba(34,211,238,.05), transparent 45%),
+    #0f172a; /* slate-900 */
+  color: #e5e7eb;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: #f9fafb;
+}
+
+/* Paragraph */
+p {
+  color: #9ca3af;
+}
+
+/* Anchor offset */
+section[id] {
+  scroll-margin-top: 96px;
+}
+
+/* =====================================================
+   REVEAL (LIGHT & ONE-TIME)
+===================================================== */
+
+.reveal,
+.reveal-left,
+.reveal-right {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition: opacity .5s ease-out, transform .5s ease-out;
+  will-change: transform, opacity;
+}
+
+.reveal-left {
+  transform: translate3d(-24px, 0, 0);
+}
+
+.reveal-right {
+  transform: translate3d(24px, 0, 0);
+}
+
+.reveal.active,
+.reveal-left.active,
+.reveal-right.active {
+  opacity: 1;
+  transform: translate3d(0,0,0);
+}
+
+/* =====================================================
+   SECTION BASE
+===================================================== */
+
+.section-lux {
+  position: relative;
+  overflow: hidden;
+}
+
+.section-lux::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.02),
+      transparent 40%,
+      rgba(0,0,0,.35)
+    );
+}
+
+/* Section colors (NOT BLACK PEKAT) */
+#home       { background: #0f172a; }
+#about      { background: #111827; }
+#projects   { background: #0f172a; }
+#skills     { background: #111827; }
+#experience { background: #0f172a; }
+#contact    { background: #111827; }
+
+
+
+/* =====================================================
+   HOME HERO (CARD STYLE)
+===================================================== */
+
+.home-hero-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.04),
+    rgba(255,255,255,.015)
+  );
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 32px;
+  padding: 48px;
+  box-shadow: 0 40px 120px rgba(0,0,0,.45);
+}
+
+@media (max-width: 768px) {
+  .home-hero-card {
+    padding: 32px 24px;
+    border-radius: 26px;
+  }
+}
+
+/* Photo */
+.home-photo-wrap {
+  max-width: 360px;
+  aspect-ratio: 1 / 1;
+  border-radius: 28px;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.08),
+    rgba(255,255,255,.02)
+  );
+  box-shadow: 0 30px 90px rgba(0,0,0,.55);
+}
+
+.home-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Text */
+.home-role {
+  font-size: 11px;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: #818cf8;
+  font-weight: 600;
+}
+
+.home-title {
+  margin-top: 16px;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.home-desc {
+  margin-top: 20px;
+  max-width: 520px;
+  line-height: 1.7;
+  margin-inline: auto;
+}
+
+@media (min-width: 1024px) {
+  .home-desc { margin-inline: 0; }
+}
+
+/* CTA */
+.home-cta {
+  margin-top: 36px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .home-cta { justify-content: flex-start; }
+}
+
+.btn-primary {
+  padding: 12px 26px;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #6366f1, #818cf8);
+  color: #fff;
+  font-size: 14px;
+}
+
+.btn-secondary {
+  padding: 12px 26px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.15);
+  color: #e5e7eb;
+}
+
+.home-meta {
+  margin-top: 32px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* =====================================================
+   LUX CARD
+===================================================== */
+
+.lux-card {
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.04),
+    rgba(255,255,255,.02)
+  );
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+@media (hover: hover) {
+  .lux-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 40px 100px rgba(99,102,241,.25);
+  }
+}
+
+/* =====================================================
+   PROJECT CARD
+===================================================== */
+
+/* PROJECT CARD ANIMATION (NO OBSERVER) */
+.project-card {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: projectIn .6s cubic-bezier(.19,1,.22,1) forwards;
+    transition-delay: calc(var(--i) * 80ms);
+}
+
+.skill-fill {
+      transition: width 1.2s ease;
+}
+.skill-fill.is-active {
+  width: var(--skill);
+}
+
+
+/* stagger otomatis */
+.project-card:nth-child(1) { animation-delay: .05s }
+.project-card:nth-child(2) { animation-delay: .1s }
+.project-card:nth-child(3) { animation-delay: .15s }
+.project-card:nth-child(4) { animation-delay: .2s }
+.project-card:nth-child(5) { animation-delay: .25s }
+.project-card:nth-child(6) { animation-delay: .3s }
+
+@keyframes projectIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#projects a {
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+}
+.project-card:active {
+  transform: translateY(-2px) scale(.99);
+}
+
+
+
+/* =====================================================
+   SKILL BAR
+===================================================== */
+
+.skill-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+}
+
+.skill-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #6366f1, #818cf8);
+}
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+nav {
+  background: rgba(15,23,42,.72);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+/* Desktop links */
+.nav-link {
+  position: relative;
+  color: #d1d5db;
+  transition: color .2s ease;
+}
+
+.nav-link:hover {
+  color: #818cf8;
+}
+
+.nav-active {
+  color: #818cf8;
+}
+
+.nav-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #6366f1, #818cf8);
+}
+
+/* =====================================================
+   MOBILE PERFORMANCE MODE
+===================================================== */
+
+@media (max-width: 768px) {
+  .pc-animate,
+  .sa-item,
+  .section-animate {
+    transition-duration: .35s !important;
+  }
+}
+
+
+/* =====================================================
+   REDUCE MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+
+/* ================= AMBIENT HERO BACKGROUND ================= */
+
+.hero-ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      1200px 400px at 50% -120px,
+      rgba(99,102,241,0.18),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(15,23,42,0.95),
+      rgba(15,23,42,0.85)
+    );
+}
+
+/* ================= SECTION ENTER / EXIT ================= */
+/* =====================================================
+   SECTION ENTER / EXIT (GLOBAL)
+===================================================== */
+
+.section-animate {
+  opacity: 1;
+    transform: none;
+  transition:
+    transform .45s cubic-bezier(.19,1,.22,1),
+    opacity .35s ease;
+  will-change: transform, opacity;
+}
+
+.section-animate.is-enter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.section-animate.is-exit {
+  opacity: 0;
+  transform: translateY(-48px);
+}
+
+
+
+/* VARIASI PER SECTION (BIAR GAK MONOTON) */
+#projects.section-animate {
+  transform: translateY(90px) scale(0.95);
+}
+
+
+#experience.section-animate {
+  transform: none;
+}
+
+
+/* =====================================================
+   SCATTER ITEM ANIMATION (DALAM SECTION)
+===================================================== */
+
+.sa-item {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    transform .65s cubic-bezier(.19,1,.22,1),
+    opacity .45s ease;
+  will-change: transform, opacity;
+}
+
+.sa-item.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sa-item.is-exit {
+  opacity: 0;
+  transform: translateY(-42px);
+}
+
+
+/* ================= DIRECTION ================= */
+
+/* MASUK */
+.sa-left   { transform: translateX(-100px) scale(0.96); }
+.sa-right  { transform: translateX(100px)  scale(0.96); }
+.sa-top    { transform: translateY(-80px)  scale(0.96); }
+.sa-bottom { transform: translateY(80px)   scale(0.96); }
+
+/* AKTIF */
+.sa-item.sa-left.is-active,
+.sa-item.sa-right.is-active,
+.sa-item.sa-top.is-active,
+.sa-item.sa-bottom.is-active {
+  transform: translate(0,0) scale(1);
+}
+
+/* KELUAR (MENCAR BALIK) */
+.sa-item.sa-left.is-exit   { transform: translateX(-120px) scale(0.94); }
+.sa-item.sa-right.is-exit  { transform: translateX(120px)  scale(0.94); }
+.sa-item.sa-top.is-exit    { transform: translateY(-100px) scale(0.94); }
+.sa-item.sa-bottom.is-exit { transform: translateY(100px)  scale(0.94); }
+
+
+
+/* ================= EXIT ITEM ================= */
+
+
+/* =====================================================
+   PERFORMANCE SAFE MODE
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .section-animate,
+  .sa-item {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+
+/* ================= PROJECT CARD ANIMATION ================= */
+
+.pc-animate {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    transform .45s cubic-bezier(.19,1,.22,1),
+    opacity .35s ease;
+}
+
+.pc-animate.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#cursor-dragon {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+
+
+@media (max-width: 768px) {
+  #cursor-dragon {
+    display: none;
+  }
+}
+
+
+
+/* ================= EXPERIENCE ANIMATION ================= */
+
+.experience-card {
+  transition:
+    transform 0.6s cubic-bezier(.19,1,.22,1),
+    box-shadow 0.6s cubic-bezier(.19,1,.22,1),
+    border-color 0.6s ease;
+  will-change: transform;
+}
+
+.experience-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(99,102,241,.35);
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.35),
+    inset 0 0 0 1px rgba(99,102,241,.15);
+}
+
+
+.period-badge {
+  transition: all .4s ease;
+}
+
+.experience-card:hover .period-badge {
+  background: rgba(99,102,241,.18);
+  box-shadow: 0 0 20px rgba(99,102,241,.35);
+}
+
+
+.tech-pill {
+  transition: transform .35s ease, background .35s ease;
+}
+
+.tech-pill:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,.08);
+}
+
+
+.experience-card h3 {
+  transition: text-shadow .4s ease;
+}
+
+.experience-card:hover h3 {
+  text-shadow: 0 0 18px rgba(99,102,241,.45);
+}
+
+.experience-card.sa-show {
+  transition-delay: var(--delay);
+}
+
+.experience-card > * {
+  transform: translateZ(0);
+}
+
+
+.experience-card {
+  transform-style: preserve-3d;
+}
+
+.experience-card:hover {
+  transform: translateY(-8px) scale(1.01);
+}
+
+
+.experience-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 20%,
+    rgba(255,255,255,.08),
+    transparent 80%
+  );
+  opacity: 0;
+  transform: translateX(-40%);
+  transition: opacity .6s ease, transform .8s cubic-bezier(.19,1,.22,1);
+  pointer-events: none;
+}
+
+.experience-card:hover::after {
+  opacity: 1;
+  transform: translateX(40%);
+}
+
+
+/* ================= EXPERIENCE ENERGY ================= */
+
+.experience-energy {
+  position: absolute;
+  inset: -1px;
+  background:
+    linear-gradient(
+      120deg,
+      transparent 30%,j
+      rgba(99,102,241,.25),
+      rgba(168,85,247,.25),
+      transparent 70%
+    );
+  opacity: 0;
+  filter: blur(20px);
+  transition: opacity .6s ease;
+  pointer-events: none;
+}
+
+.experience-card:hover .experience-energy {
+  opacity: 1;
+}
+
+
+/* ================= CONTACT CARD IDLE ================= */
+
+.contact-card {
+  animation: contactFloat 6s ease-in-out infinite;
+}
+
+@keyframes contactFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* ================= PREMIUM NAV LINKS ================= */
+.nav-link-premium {
+    position: relative;
+    color: #cbd5f5;
+    transition: color .3s, transform .3s;
+}
+
+.nav-link-premium::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg,#6366f1,#22d3ee);
+    transition: width .4s;
+}
+
+.nav-link-premium:hover {
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.nav-link-premium:hover::after {
+    width: 100%;
+}
+
+/* ================= SIDEBAR LINKS ================= */
+.sidebar-link-premium {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all .4s;
+}
+
+.sidebar-link-premium.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.sidebar-link-premium:hover {
+    color: white;
+    padding-left: 6px;
+}
+
+
+/* ============================================
+   CERTIFICATE GRID (ANTI-BUG ANIMATION)
+============================================ */
+
+
+#certificateGrid.active {
+  opacity: 1;
+}
+
+/* Optional: smoother hover feel */
+#certificateGrid article {
+  will-change: transform;
+}
+
+
+@keyframes gradient-x {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 3s linear infinite;
+}
+
+
+
+@keyframes skill-fill {
+    to {
+        width: var(--value);
+    }
+}
+
+
+.skill-card {
+    transition: transform .5s ease, opacity .5s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-4px);
+}
+
+
+/* === FORCE SKILL BAR === */
+.skill-bar {
+    width: 0;
+    transition: width 1.4s cubic-bezier(.4,0,.2,1);
+    will-change: width;
+}
+
+
+.skill-bar {
+    background-color: #a855f7 !important;
+    filter: drop-shadow(0 0 18px rgba(168,85,247,.9));
+}
